@@ -1,0 +1,22 @@
+version: '3'
+
+
+services:
+  rep0:
+    build: .
+    image: extensible_depspace
+    command: /home/depspace/scripts/replicaEDS.sh 0 /home/depspace/config 
+  rep1:
+    image: extensible_depspace
+    command: sh -c 'sleep 3 && wait-for-it.sh rep0:11000 -- /home/depspace/scripts/replicaEDS.sh 1 /home/depspace/config' 
+  rep2:
+    image: extensible_depspace
+    command: sh -c 'sleep 5 && wait-for-it.sh rep0:11000 -- /home/depspace/scripts/replicaEDS.sh 2 /home/depspace/config' 
+  rep3:
+    image: extensible_depspace
+    command: sh -c 'sleep 7 && wait-for-it.sh rep0:11000 -- /home/depspace/scripts/replicaEDS.sh 3 /home/depspace/config' 
+
+
+  client:
+    image: extensible_depspace
+    command: sh -c 'sleep 15 && wait-for-it.sh rep3:11000 -- /home/depspace/scripts/clientEDS.sh 4 /home/depspace/config /home/depspace/src' 

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Check parameters
 if [ $# -lt 2 ] ; then
