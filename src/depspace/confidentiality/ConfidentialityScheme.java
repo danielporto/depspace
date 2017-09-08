@@ -6,11 +6,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.math.BigInteger;
 
-import pvss.InvalidVSSScheme;
-import pvss.PVSSEngine;
-import pvss.PublicInfo;
-import pvss.PublishedShares;
-import pvss.Share;
+import pvss.*;
 import depspace.general.DepTuple;
 
 /**
@@ -117,7 +113,7 @@ public class ConfidentialityScheme {
         return true;
     }
 
-    public Object[] extractTuple(Share[] shares) throws InvalidVSSScheme {
+    public Object[] extractTuple(Share[] shares) throws InvalidVSSScheme, ErrorDecryptingException {
     	byte[] tupleBytes = engine.generalCombineShares(shares);
     	try {
     		return (Object[])new ObjectInputStream(
